@@ -1,0 +1,106 @@
+# ###############################################################################
+# Blueyescat tarafından Skript ile Discord Botu örneği 
+#
+# Güzel/kullanışlı komut (çoklu önek) ve evaluate sistemleri içeriyor.
+#
+# Vixio, TuSKe ve SkQuery Skript addonları gerektirir
+# ###############################################################################
+
+options:
+	#Bot Tokeni
+	#
+	#Botunun tokenini buradan alabilirsin: https://discordapp.com/developers
+	token: ""
+	
+	#Değiştirilmesi önemli değil (Discord'daki kullanıcı adı değil)
+	botName: "DiscordBotu"
+
+	#Komut Önekleri
+	#
+	#Eğer komut öneklerinde emoji kullanmak istiyorsan, bu emojilerin unicode karakterlerini buradan al: https://emojipedia.org
+	#Örnek olarak Discord'da :apple: emojisi: "🍎"
+	#
+	#Eğer botunun bahsetme etiketini kullanmak istiyorsan direkt olarak "@kullanıcıAdı" kullanabilirsin.
+	prefixes: "! " and "!" # "! " (boşluklu) "!" (boşluksuz)'dan önce gelmek zorunda.
+
+	#Yönetici kullanıcıların 18 haneli Discord ID'leri
+	#
+	#For more than one admins you must use "or" instead of "and" on the list like "", "" or ""
+	#Birden fazla yönetici için listede "and" yerine "or" kullanmak zorundasın. "", "" or "" gibi.
+	admins: ""
+
+#Sadece Skript eklentisi aktifleştirildiğinde Discord botuna/hesabına giriş yapmayı dener
+#Sunucuyu yeniden başlatmayı gerektirir!
+on skript load:
+	login to user with token {@token} with name {@botName}
+
+on guild message received seen by {@botName}:
+	#
+	#Komut Formatı
+	#
+	loop {@prefixes}:
+		if event-string is loop-value:
+			set {_prefix} to loop-value
+			set {_strings::*} to split regex replace all "(.*?)\n```" with "$1 ```" in event-string at " "
+			if {_prefix} contains " ":
+				set {_command} to {_strings::2}
+				delete {_strings::1} and {_strings::2}
+			else:
+				set {_command} to subtext of {_strings::1} from character (length of {_prefix}) + 1 to length of {_strings::1}
+				delete {_strings::1}
+			set {_arg::*} to {_strings::*}
+			set {_arguments} to join {_arg::*} with " "
+			stop loop
+	#
+	#Komut sistemi için mümkün değişkenler:
+	# {_prefix} - {_command} - {_arguments} - {_arg::<sayı>}
+	#
+	if {_command} is set:
+		if {_command} is "eval" or "evaluate":
+			if event-user is {@admins}:
+				if {_arguments} is set:
+					#
+					#Argumentlerin başında ki boşlukları siler
+					#
+					set {_arguments} to regex replace "^\s+" with "" in {_arguments}
+					#
+					#Kod bloklarından Skript kodunu alır (Tek satır komut bloğu desteği eklemedim)
+					#
+					if first 3 characters of {_arguments} is "```":
+						if last 3 characters of {_arguments} is "```":
+							if first 5 characters of {_arguments} is "```vb": #Kod bloklarında Visual Basic dili desteği
+								set {_arguments} to subtext of {_arguments} from character 6 to (length of {_arguments} - 3)
+							else:
+								set {_arguments} to subtext of {_arguments} from character 4 to (length of {_arguments} - 3)
+						else:
+							create embed "evaluate"
+							set title of embed "evaluate" to ":x: Geçersiz Kod Bloğu!"
+							set color of embed "evaluate" to "RED"
+							send embed "evaluate" to channel event-channel with {@botName}
+							delete embed "evaluate"
+							stop
+					#
+					#Skript kodunu kullanır ve eğer hata varsa alır
+					#
+					evaluate logging in {_errors::*}: {_arguments}
+					if {_errors::*} is set:
+						#
+						#Hataları güzelce formatlar
+						#
+						loop {_errors::*}:
+							set {_parse::*} to loop-value parsed as "%text% \(TuSKe\/evaluate.sk, line %integer%\: %text%'\)"
+							add "**Satır %{_parse::2}%:** *%{_parse::1}%*%nl%**>** ``%{_parse::3}%``" to {_lines::*}
+						create embed "evaluate"
+						set title of embed "evaluate" to ":x: Evaluate Hataları (%size of {_errors::*}%)"
+						set description of embed "evaluate" to join {_lines::*} with nl
+						set color of embed "evaluate" to "RED"
+						send embed "evaluate" to channel event-channel with {@botName}
+						delete embed "evaluate"
+		else if {_command} is "temizle", "clear" or "purge":
+			if event-user is {@admins}:
+				if {_arguments} parsed as number is set:
+					clear {_arguments} parsed as number messages in event-channel with {@botName}
+				else:
+					reply with ":exclamation: **Komut Kullanımı: %{_prefix}%**%{_command}% <Mesaj Sayısı 1-100>"
+			else:
+				reply with ":x: Bu komutu sadece yöneticiler kullanabilir!"
