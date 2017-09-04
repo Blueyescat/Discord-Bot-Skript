@@ -35,7 +35,7 @@ on guild message sent by {@botName}:
 	#Komut Formatı
 	#
 	loop {@prefixes}:
-		if event-string is loop-value:
+		if event-string starts with "%loop-value%":
 			set {_prefix} to loop-value
 			set {_strings::*} to split regex replace all "(.*?)\n```" with "$1 ```" in event-string at " "
 			if {_prefix} contains " ":
@@ -64,7 +64,7 @@ on guild message sent by {@botName}:
 				if first 3 characters of {_arguments} is "```":
 					if last 3 characters of {_arguments} is "```":
 						if first 5 characters of {_arguments} is "```vb": #Kod bloklarında Visual Basic dili desteği
-							set {_arguments} to subtext of {_arguments} from character 6 to (length of {_arguments} - 3)
+							set {_arguments} to subtext of {_arguments} from character 7 to (length of {_arguments} - 3)
 						else:
 							set {_arguments} to subtext of {_arguments} from character 4 to (length of {_arguments} - 3)
 					else:
