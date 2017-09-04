@@ -10,7 +10,7 @@ options:
 	#Bot Token
 	#
 	#Token of your Discord account.
-	#You can get the token by pressing CTRL+SHIFT+I and following these stages: http://i.imgur.com/kyaHOz8.png
+	#You can get the token by pressing CTRL+SHIFT+I in Discord and following these stages: http://i.imgur.com/kyaHOz8.png
 	#Don't give token of your Discord account to anyone!
 	token: ""
 	
