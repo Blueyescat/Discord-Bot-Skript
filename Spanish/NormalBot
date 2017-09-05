@@ -1,41 +1,41 @@
 # ###############################################################################
-# Discord Bot Skript example by Blueyescat
+# Ejemplo de Skript Discord Bot por Blueyescat
 #
-# Includes good/useful command (multi prefix) and evaluate systems.
+# Incluye comandos buenos/útiles (con multiples prefijos) y un sistema de evaluación.
 #
-# Requires Vixio, TuSKe and SkQuery Skript addons
+# Requiere los addons de Skript: Vixio, TuSKe y skQuery
 # ###############################################################################
 
 options:
 	#Bot Token
 	#
-	#Get token of your bot from https://discordapp.com/developers
+	#Obtén el token de tú bot en https://discordapp.com/developers
 	token: ""
 	
-	#Not important to change (Not user name in Discord)
+	#No le tomes importancia, es el nombre de referencia en el código (No es el nombre de usuario en Discord)
 	botName: "BotName"
 
-	#Command Prefixes
+	#Prefijos de comandos
 	#
-	#If you want to use emojis in command prefixes, get unicode character of these emojis from: https://emojipedia.org
-	#For example :apple: in Discord: "🍎"
+	#Sí quieres usar emojis como prefijo en los comandos, obtén el cáracter unicode de este en: https://emojipedia.org
+	#Por ejemplo, :apple: en Discord: "🍎"
 	#
-	#If you want to use mention tag of your bot in a command prefix you can use directly "@userName"
-	prefixes: "! " and "!" # "! " (with space) must come before "!"
+	#Sí quieres usar la etiqueta de mención como prefijo de comando puedes usar directamente "@nombreDeUsuario"
+	prefixes: "! " and "!" # "! " (Sin el espacio) debería estar antes de "!"
 	
-	#18 digit Discord IDs of admin users
+	#Discord IDs de 18 dígitos de los usuarios administradores
 	#
-	#For more than one admin you must use "or" instead of "and" on the list like "", "" or ""
+	#Para más de un administrador deberías usar "or" en vez de "and" en la lista, de la siguiente manera: "", "" or ""
 	admins: ""
 
-#Tries to login to Discord bot/account only when Skript is enabled
-#Requires restart server!
+#Intenta iniciar sesión a la cuenta del Discord bot cuando Skript es activado
+#¡Requiere reiniciar el servidor!
 on skript load:
 	login to user with token {@token} with name {@botName}
 
 on guild message received seen by {@botName}:
 	#
-	#Command Format
+	#Formato del comando
 	#
 	loop {@prefixes}:
 		if event-string starts with "%loop-value%":
@@ -51,7 +51,7 @@ on guild message received seen by {@botName}:
 			set {_arguments} to join {_arg::*} with " "
 			stop loop
 	#
-	#Available variables for command system:
+	#Variables usadas en el sistema de comandos:
 	# {_prefix} - {_command} - {_arguments} - {_arg::<number>}
 	#
 	if {_command} is set:
@@ -59,38 +59,38 @@ on guild message received seen by {@botName}:
 			if event-user is {@admins}:
 				if {_arguments} is set:
 					#
-					#Removes spaces at the beginning of the arguments
+					#Remueve los espacios en el principio de los argumentos
 					#
 					set {_arguments} to regex replace "^\s+" with "" in {_arguments}
 					#
-					#Gets Skript code from code blocks (I didn't add one line code block support)
+					#Obtiene el código de Skript desde un bloque de código (No añadí soporte para bloques de código de una línea)
 					#
 					if first 3 characters of {_arguments} is "```":
 						if last 3 characters of {_arguments} is "```":
-							if first 5 characters of {_arguments} is "```vb": #Visual Basic syntax highlight support on code blocks
+							if first 5 characters of {_arguments} is "```vb": #Soporte de resalto de sintaxis de Visual Basic en bloques de código
 								set {_arguments} to subtext of {_arguments} from character 7 to (length of {_arguments} - 3)
 							else:
 								set {_arguments} to subtext of {_arguments} from character 4 to (length of {_arguments} - 3)
 						else:
 							create embed "evaluate"
-							set title of embed "evaluate" to ":x: Invalid code block!"
+							set title of embed "evaluate" to ":x: ¡Bloque de código inválido!"
 							set color of embed "evaluate" to "RED"
 							send embed "evaluate" to channel event-channel with {@botName}
 							delete embed "evaluate"
 							stop
 					#
-					#Evaluates the Skript code and gets errors if there
+					#Evalúa el código de Skript y obtiene los errores sí hay
 					#
 					evaluate logging in {_errors::*}: {_arguments}
 					if {_errors::*} is set:
 						#
-						#Changes the format of the errors
+						#Cambiar el formato de los errores
 						#
 						loop {_errors::*}:
 							set {_parse::*} to loop-value parsed as "%text% \(TuSKe\/evaluate.sk, line %integer%\: %text%'\)"
-							add "**Line %{_parse::2}%:** *%{_parse::1}%*%nl%**>** ``%{_parse::3}%``" to {_lines::*}
+							add "**Línea %{_parse::2}%:** *%{_parse::1}%*%nl%**>** ``%{_parse::3}%``" to {_lines::*}
 						create embed "evaluate"
-						set title of embed "evaluate" to ":x: Evaluate Errors (%size of {_errors::*}%)"
+						set title of embed "evaluate" to ":x: Errores de evaluación (%size of {_errors::*}%)"
 						set description of embed "evaluate" to join {_lines::*} with nl
 						set color of embed "evaluate" to "RED"
 						send embed "evaluate" to channel event-channel with {@botName}
@@ -100,6 +100,6 @@ on guild message received seen by {@botName}:
 				if {_arguments} parsed as number is set:
 					clear {_arguments} parsed as number messages in event-channel with {@botName}
 				else:
-					reply with ":exclamation: **Command Usage: %{_prefix}%**%{_command}% <Message Number 1-100>"
+					reply with ":exclamation: **Uso del comando: %{_prefix}%**%{_command}% <Número entre 1 y 100>"
 			else:
-				reply with ":x: Only administrators can use this command!"
+				reply with ":x: ¡Los administradores son los únicos que pueden usar este comando!"
