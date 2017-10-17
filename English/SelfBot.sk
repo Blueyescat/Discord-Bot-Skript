@@ -23,7 +23,7 @@ options:
 	#For example :apple: in Discord: "🍎"
 	#
 	#If you want to use mention tag of your bot in a command prefix you can use directly "@userName"
-	prefixes: "> " and ">" # "> " (with space) must come before ">" (without space)
+	prefixes: "> " and ">" #"> " (with space) must come before ">" (without space)
 
 #Tries to login to Discord bot/account only when Skript is enabled
 #Requires restart server!
