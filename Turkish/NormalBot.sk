@@ -21,11 +21,10 @@ options:
 	#Örnek olarak Discord'da :apple: emojisi: "🍎"
 	#
 	#Eğer botunun bahsetme etiketini kullanmak istiyorsan direkt olarak "@kullanıcıAdı" kullanabilirsin.
-	prefixes: "! " and "!" # "! " (boşluklu) "!" (boşluksuz)'dan önce gelmek zorunda.
+	prefixes: "! " and "!" #"! " (boşluklu), "!" (boşluksuz)'dan önce gelmek zorunda.
 
 	#Yönetici kullanıcıların 18 haneli Discord ID'leri
 	#
-	#For more than one admins you must use "or" instead of "and" on the list like "", "" or ""
 	#Birden fazla yönetici için listede "and" yerine "or" kullanmak zorundasın. "", "" or "" gibi.
 	admins: ""
 
@@ -52,7 +51,7 @@ on guild message received seen by {@botName}:
 			set {_arguments} to join {_arg::*} with " "
 			stop loop
 	#
-	#Komut sistemi için mümkün değişkenler:
+	#Komut sistemi için mevcut değişkenler:
 	# {_prefix} - {_command} - {_arguments} - {_arg::<sayı>}
 	#
 	if {_command} is set:
@@ -80,7 +79,7 @@ on guild message received seen by {@botName}:
 							delete embed "evaluate"
 							stop
 					#
-					#Skript kodunu kullanır ve eğer hata varsa alır
+					#Skript kodunu kullanır ve eğer hata varsa listeye ekler
 					#
 					evaluate logging in {_errors::*}: {_arguments}
 					if {_errors::*} is set:
