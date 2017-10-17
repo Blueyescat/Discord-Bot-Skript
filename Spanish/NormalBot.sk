@@ -21,7 +21,7 @@ options:
 	#Por ejemplo, :apple: en Discord: "🍎"
 	#
 	#Sí quieres usar la etiqueta de mención como prefijo de comando puedes usar directamente "@nombreDeUsuario"
-	prefixes: "! " and "!" # "! " (Sin el espacio) debería estar antes de "!"
+	prefixes: "! " and "!" #"! " (Sin el espacio) debería estar antes de "!"
 	
 	#Discord IDs de 18 dígitos de los usuarios administradores
 	#
