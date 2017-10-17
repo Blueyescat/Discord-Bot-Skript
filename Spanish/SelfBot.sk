@@ -23,7 +23,7 @@ options:
   #Por ejemplo, :apple: en Discord: "🍎"
   #
   #Sí quieres usar la etiqueta de mención como prefijo de comando puedes usar directamente "@nombreDeUsuario"
-	prefixes: "> " and ">" # "> " (with space) must come before ">" (without space)
+	prefixes: "> " and ">" #"> " (Sin el espacio) debería estar antes de ">"
 
 #Intenta iniciar sesión a la cuenta del Discord bot cuando Skript es activado
 #¡Requiere reiniciar el servidor!
