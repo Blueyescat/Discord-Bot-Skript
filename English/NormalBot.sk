@@ -21,7 +21,7 @@ options:
 	#For example :apple: in Discord: "🍎"
 	#
 	#If you want to use mention tag of your bot in a command prefix you can use directly "@userName"
-	prefixes: "! " and "!" # "! " (with space) must come before "!"
+	prefixes: "! " and "!" #"! " (with space) must come before "!"
 	
 	#18 digit Discord IDs of admin users
 	#
