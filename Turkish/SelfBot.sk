@@ -35,16 +35,13 @@ on guild message sent by {@botName}:
 	#Komut Formatı
 	#
 	loop {@prefixes}:
-		if event-string starts with "%loop-value%":
+		if first (length of "%loop-value%") characters of event-string is loop-value:
 			set {_prefix} to loop-value
-			set {_strings::*} to split regex replace all "(.*?)\n```" with "$1 ```" in event-string at " "
-			if {_prefix} contains " ":
-				set {_command} to {_strings::2}
-				delete {_strings::1} and {_strings::2}
-			else:
-				set {_command} to subtext of {_strings::1} from character (length of {_prefix}) + 1 to length of {_strings::1}
-				delete {_strings::1}
+			set {_strings::*} to split regex replace all "^\s+" with "" in regex replace all "(.*?)\n```" with "$1 ```" in (subtext of event-string from character length of {_prefix} + 1 to length of event-string) at " "
+			set {_command} to {_strings::1}
+			delete {_strings::1}
 			set {_arg::*} to {_strings::*}
+			delete {_strings::*}
 			set {_arguments} to join {_arg::*} with " "
 			stop loop
 	#
