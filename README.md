@@ -3,7 +3,7 @@ Example Discord Bot Skript by Blueyescat
 
 Includes a good, and useful command (multi prefix) and evaluation systems.
 
-Tested with **Minecraft 1.8-1.12.1**, **Skript 2.2 Fixes V8** and **2.2-dev31**, **Spigot** and **PaperSpigot** and addons below:
+Tested with **Minecraft 1.8-1.12.2**, **Skript 2.2 Fixes V8** and **2.2-dev34**, **Spigot** and **PaperSpigot** and addons below:
 
 ### Required Skript Addons
 - Vixio: http://vixio.space/download
