@@ -1,0 +1,95 @@
+# ###############################################################################
+# Exemple de selfbot discord par Blueyescat
+#
+# Inclut des commandes bonnes/utiles (prefix multiple) et systeme d'evaluation.
+#
+# Requiert les addons Vixio, TuSKe et SkQuery Skript
+# ###############################################################################
+
+options:
+	#Bot Token
+	#
+	#Token de votre compte discord
+	#Vous pouvez obtenir le token en pressant CTRL+SHIFT+I sur Discord et en suivant les étapes suivante: http://i.imgur.com/kyaHOz8.png
+	#Ne donnez le token de compte discord à personne !
+	token: ""
+	
+	#Ce n'est pas important à changer (Ce n'est pas le nom d'utilisateur)
+	botName: "SelfBot"
+
+	#Les prefix des commandes
+	#
+	#Si vous voulez utiliser un emoji en tant que prefix, recupérer le caractère unicode de cet emoji sur https://emojipedia.org
+	#Par exemple :apple: Sur Discord: "🍎"
+	#
+	#Si vous voulez utiliser une mention en tant que prefix, vous pouvez utiliser directement "@userName"
+	prefixes: "> " and ">" #"> " (with space) must come before ">" (without space)
+
+#Va tenter de se connecter au lancement du skript
+#Vous avez besoin de redémarrer le serveur !
+on skript load:
+	login to user with token {@token} with name {@botName}
+
+on guild message sent by {@botName}:
+	#
+	#Format de commande
+	#
+	loop {@prefixes}:
+		if first (length of "%loop-value%") characters of event-string is loop-value:
+			set {_prefix} to loop-value
+			set {_strings::*} to split regex replace all "^\s+" with "" in regex replace all "(.*?)\n```" with "$1 ```" in (subtext of event-string from character length of {_prefix} + 1 to length of event-string) at " "
+			set {_command} to {_strings::1}
+			delete {_strings::1}
+			set {_arg::*} to {_strings::*}
+			delete {_strings::*}
+			set {_arguments} to join {_arg::*} with " "
+			stop loop
+	#
+	#Variables disponibles dans le systeme de commande
+	# {_prefix} - {_command} - {_arguments} - {_arg::<number>}
+	#
+	if {_command} is set:
+		if {_command} is "eval" or "evaluate":
+			if {_arguments} is set:
+				#
+				#Supprime les espaces au début des arguments
+				#
+				set {_arguments} to regex replace "^\s+" with "" in {_arguments}
+				#
+				#Récupère le code en skript venant d'un bloc de code (Je n'ai pas ajouté un seul support de bloc de code)
+				#
+				if first 3 characters of {_arguments} is "```":
+					if last 3 characters of {_arguments} is "```":
+						if first 5 characters of {_arguments} is "```vb": #Visual Basic syntax highlight support on code blocks
+							set {_arguments} to subtext of {_arguments} from character 7 to (length of {_arguments} - 3)
+						else:
+							set {_arguments} to subtext of {_arguments} from character 4 to (length of {_arguments} - 3)
+					else:
+						create embed "evaluate"
+						set title of embed "evaluate" to ":x: Code bloc invalide!"
+						set color of embed "evaluate" to "RED"
+						send embed "evaluate" to channel event-channel with {@botName}
+						delete embed "evaluate"
+						stop
+				#
+				#Evalue le code en Skript et récupère les erreurs s'il y en a
+				#
+				evaluate logging in {_errors::*}: {_arguments}
+				if {_errors::*} is set:
+					#
+					#Change le format des erreurs
+					#
+					loop {_errors::*}:
+						set {_parse::*} to loop-value parsed as "%text% \(TuSKe\/evaluate.sk, line %integer%\: %text%'\)"
+						add "**Line %{_parse::2}%:** *%{_parse::1}%*%nl%**>** ``%{_parse::3}%``" to {_lines::*}
+					create embed "evaluate"
+					set title of embed "evaluate" to ":x: Erreurs Evalues (%size of {_errors::*}%)"
+					set description of embed "evaluate" to join {_lines::*} with nl
+					set color of embed "evaluate" to "RED"
+					send embed "evaluate" to channel event-channel with {@botName}
+					delete embed "evaluate"
+		else if {_command} is "clear" or "purge":
+			if {_arguments} parsed as number is set:
+				clear {_arguments} parsed as number messages in event-channel with {@botName}
+			else:
+				reply with ":exclamation: **Commande correct: %{_prefix}%**%{_command}% <Nombre de message 1-100>"
