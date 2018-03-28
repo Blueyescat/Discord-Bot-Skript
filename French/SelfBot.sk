@@ -23,7 +23,7 @@ options:
 	#Par exemple :apple: Sur Discord: "🍎"
 	#
 	#Si vous voulez utiliser une mention en tant que prefix, vous pouvez utiliser directement "@userName"
-	prefixes: "> " and ">" #"> " (with space) must come before ">" (without space)
+	prefixes: "> " and ">" #"> " (avec espaces) doit venir avant ">" (sans espace)
 
 #Va tenter de se connecter au lancement du skript
 #Vous avez besoin de redémarrer le serveur !
@@ -60,7 +60,7 @@ on guild message sent by {@botName}:
 				#
 				if first 3 characters of {_arguments} is "```":
 					if last 3 characters of {_arguments} is "```":
-						if first 5 characters of {_arguments} is "```vb": #Visual Basic syntax highlight support on code blocks
+						if first 5 characters of {_arguments} is "```vb": #Syntax colorer Visual Basic pour le bloc de code
 							set {_arguments} to subtext of {_arguments} from character 7 to (length of {_arguments} - 3)
 						else:
 							set {_arguments} to subtext of {_arguments} from character 4 to (length of {_arguments} - 3)
