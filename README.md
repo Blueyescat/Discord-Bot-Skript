@@ -1,7 +1,7 @@
 # Discord Bot Skript
 Example Discord Bot Skript by Blueyescat
 
-Includes a good evaluation systems.
+Includes a good evaluation system.
 
 ### Required Skript Addons
 - Vixio: http://vixio.space/download
