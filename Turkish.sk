@@ -41,13 +41,13 @@ discord command evaluate <text>:
 			set {_code} to regex replace "^\s+" with "" in arg-1
 			if first 3 characters of {_code} is "```":
 				if last 3 characters of {_code} is "```":
-					if first 5 characters of {_code} is "```vb": #VB.Net syntax highlight support on code blocks
+					if first 5 characters of {_code} is "```vb": # Kod bloklarında VB.Net dili desteği
 						set {_code} to subtext of {_code} from character 7 to (length of {_code} - 3)
 					else:
 						set {_code} to subtext of {_code} from character 4 to (length of {_code} - 3)
 				else:
 					create embed:
-						set description of the embed to ":x: Invalid code block!"
+						set description of the embed to ":x: Geçersiz kod bloğu!
 						set color of the embed to color from rgb 255, 0, 0
 					reply with the last created embed
 					stop
@@ -56,14 +56,14 @@ discord command evaluate <text>:
 			if {_errors::*} is set:
 				loop {_errors::*}:
 					set {_parse::*} to loop-value parsed as "%text% \(TuSKe\/evaluate.sk, line %integer%\: %text%'\)"
-					add "**Line %{_parse::2}%:** *%{_parse::1}%*%nl%**>** ``%{_parse::3}%``" to {_lines::*}
+					add "**Satır %{_parse::2}%:** *%{_parse::1}%*%nl%**>** ``%{_parse::3}%``" to {_lines::*}
 				create embed:
-					set title of the embed to ":x: Evaluate Errors (%size of {_errors::*}%)"
+					set title of the embed to ":x: Evaluate Hataları(%size of {_errors::*}%)"
 					set description of the embed to join {_lines::*} with new line
 					set color of the embed to color from rgb 255, 0, 0
 				reply with the last created embed
 		else:
-			reply with ":x: Only administrators can use this command!"
+			reply with ":x: Bu komutu sadece yöneticiler kullanabilir!"
 
 discord command purge <text>:
 	aliases: purgemessages, clear, clearmessags
@@ -76,10 +76,10 @@ discord command purge <text>:
 			if {_count} is greater than 0:
 				grab the last {_count} messages in event-channel
 				purge the grabbed messages with event-bot
-				reply with ":white_check_mark: Successfully purged %{_count}% messages!" and store the message in {_message}
+				reply with ":white_check_mark: Başarıyla %{_count}% mesaj temizlendi!" and store the message in {_message}
 				wait 2 seconds
 				delete random message of {_message} with event-bot
 			else:
-				reply with ":x: Usage:  **%used prefix%**%used command% **<**a positive number**>**"
+				reply with ":x: Kullanım:  **%used prefix%**%used command% **<**bir pozitif sayı**>**"
 		else:
-			reply with ":x: Only administrators can use this command!"
+			reply with ":x: Bu komutu sadece yöneticiler kullanabilir!"

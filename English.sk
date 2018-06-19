@@ -40,7 +40,7 @@ discord command evaluate <text>:
 			set {_code} to regex replace "^\s+" with "" in arg-1
 			if first 3 characters of {_code} is "```":
 				if last 3 characters of {_code} is "```":
-					if first 5 characters of {_code} is "```vb": #VB.Net syntax highlight support on code blocks
+					if first 5 characters of {_code} is "```vb": # VB.Net syntax highlighting support on code blocks
 						set {_code} to subtext of {_code} from character 7 to (length of {_code} - 3)
 					else:
 						set {_code} to subtext of {_code} from character 4 to (length of {_code} - 3)
@@ -75,7 +75,7 @@ discord command purge <text>:
 			if {_count} is greater than 0:
 				grab the last {_count} messages in event-channel
 				purge the grabbed messages with event-bot
-				reply with ":white_check_mark: Successfully purged %{_count}% messages!" and store the message in {_message}
+				reply with ":white_check_mark: Successfully purged %{_count}% message%""s"" if {_count} is greater than 1, else """"%!" and store the message in {_message}
 				wait 2 seconds
 				delete random message of {_message} with event-bot
 			else:
