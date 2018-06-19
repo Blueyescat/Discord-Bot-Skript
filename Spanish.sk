@@ -80,6 +80,6 @@ discord command purge <text>:
 				wait 2 seconds
 				delete random message of {_message} with event-bot
 			else:
-				reply with ":x: Uso del comando: **%used prefix%**%used command% **<**un número positivo**>**"
+				reply with ":x: Uso del comando:  **%used prefix%**%used command% **<**un número positivo**>**"
 		else:
 			reply with ":x: ¡Los administradores son los únicos que pueden usar este comando!"
