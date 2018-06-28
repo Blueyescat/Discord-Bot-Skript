@@ -75,7 +75,7 @@ discord command purge <text>:
 			if {_count} is greater than 0:
 				grab the last {_count} messages in event-channel
 				purge the grabbed messages with event-bot
-				reply with ":white_check_mark: Successfully purged %{_count}% message%""s"" if {_count} is greater than 1, else """"%!" and store the message in {_message}
+				reply with ":white_check_mark: Successfully purged %{_count}% message%(""s"") if {_count} is greater than 1, else """"%!" and store the message in {_message}
 				wait 2 seconds
 				delete random message of {_message} with event-bot
 			else:
