@@ -47,7 +47,7 @@ discord command evaluate <text>:
 						set {_code} to subtext of {_code} from character 4 to (length of {_code} - 3)
 				else:
 					create embed:
-						set description of the embed to ":x: Geçersiz kod bloğu!
+						set description of the embed to ":x: Geçersiz kod bloğu!"
 						set color of the embed to color from rgb 255, 0, 0
 					reply with the last created embed
 					stop
