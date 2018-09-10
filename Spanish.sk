@@ -10,9 +10,10 @@ options:
 	# Bot Token
 	#
 	# Obtén el token de tú bot en https://discordapp.com/developers
-	token: ""
+	token: "MjE2OTIxNDEyNzgxMjExNjQ4.xXXXxxxXXxXxXXXxXXxxxXxxXXxxXxXXXXxxXxxXXXxxxx"
 	
-	#No le tomes importancia, es el nombre de referencia en el código (No es el nombre de usuario en Discord)
+	# No le tomes importancia, es el nombre de referencia en el código (No es el nombre de usuario en Discord) y los dos valores deben ser los mismos
+	bot: "BotName"
 	botName: BotName
 
 	# Prefijos de comandos
@@ -29,8 +30,12 @@ options:
 	admins: "012345678910111213", "312111019876543210" or "981713114610522013"
 
 on load:
-	if "{@botName}" parsed as bot is not set: 
-		login to {@token} with name "{@botName}"
+	if {@bot} parsed as bot is not set: 
+		login to {@token} with name {@bot}
+    set status of {@bot} to online
+
+on unload:
+    set status of {@bot} to do not disturb
 
 discord command evaluate <text>:
 	aliases: eval

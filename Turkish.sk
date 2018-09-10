@@ -10,9 +10,10 @@ options:
 	# Bot Tokeni
 	#
 	# Botunun tokenini buradan alabilirsin: https://discordapp.com/developers
-	token: ""
+	token: "MjE2OTIxNDEyNzgxMjExNjQ4.xXXXxxxXXxXxXXXxXXxxxXxxXXxxXxXXXXxxXxxXXXxxxx"
 	
-	# Değiştirilmesi önemli değil (Discord'daki kullanıcı adı değil)
+	# Değiştirilmesi önemli değil (Discord'daki kullanıcı adı değil) ve iki değer de aynı olmalı
+	bot: "BotName"
 	botName: BotName
 	
 	# Komut Önekleri
@@ -29,8 +30,12 @@ options:
 	admins: "012345678910111213", "312111019876543210" or "981713114610522013"
 
 on load:
-	if "{@botName}" parsed as bot is not set: 
-		login to {@token} with name "{@botName}"
+	if {@bot} parsed as bot is not set: 
+		login to {@token} with name {@bot}
+    set status of {@bot} to online
+
+on unload:
+    set status of {@bot} to do not disturb
 
 discord command evaluate <text>:
 	aliases: eval
