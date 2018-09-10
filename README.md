@@ -1,5 +1,5 @@
 # Discord Bot Skript
-Example Discord Bot Skript by Blueyescat
+Example Discord Bot Skript by Blueyescat (Discord: `Blueyescat#0733`)
 
 Includes a good evaluation system. It will try to login to the bot when you load/reload the script. Also the bot will be in the `do not disturb` mode while the script is reloading. That means the bot can't respond. Pretty cool, huh?
 
