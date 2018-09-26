@@ -31,10 +31,10 @@ options:
 on load:
 	if {@bot} parsed as bot is not set: 
 		login to {@token} with name {@bot}
-    set status of {@bot} to online
+	set status of {@bot} to online
 
 on unload:
-    set status of {@bot} to do not disturb
+	set status of {@bot} to do not disturb
 
 discord command evaluate <text>:
 	aliases: eval
