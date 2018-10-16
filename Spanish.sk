@@ -71,7 +71,7 @@ discord command evaluate <text>:
 			reply with ":x: ¡Los administradores son los únicos que pueden usar este comando!"
 
 discord command purge <text>:
-	aliases: purgemessages, clear, clearmessags
+	aliases: purgemessages, clear, clearmessages
 	prefixes: {@prefixes}
 	executable in: guild
 	bots: {@botName}
