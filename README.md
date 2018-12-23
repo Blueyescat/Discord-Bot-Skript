@@ -16,3 +16,10 @@ Includes a good evaluation system. It will try to login to the bot when you load
 - Minecraft 1.8: https://drive.google.com/file/d/0B-hk5uuAupCALXNqZHhHeTdwek0/view
 
 - Minecraft 1.7-: https://dev.bukkit.org/projects/skript/files
+
+#### Discord
+- Blueyescat#0733
+- [**My personal Discord Server**](https://discord.gg/ayvQQtq) (Global)
+- [Skript Hub Discord Server](https://skripthub.net/discord) (Global)
+- [Skript Chat Discord Server](https://discord.gg/tMhwDmC) (Global)
+- [Skript Topluluğu Discord Server](https://discord.gg/UuNuz5Y) (Turkish)
