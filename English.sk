@@ -19,7 +19,7 @@ options:
 	# Command Prefixes
 	#
 	# If you want to use emojis in command prefixes, get unicode character of these emojis from: https://emojipedia.org
-	# For example :apple: in Discord: "??"
+	# For example :apple: in Discord: "🍎"
 	#
 	# If you want to use mention tag of your bot as command prefix use: <@id>
 	prefixes: !

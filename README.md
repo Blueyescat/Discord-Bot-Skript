@@ -8,7 +8,7 @@ Includes a good evaluation system. It will try to login to the bot when you load
 1. TuSKe: https://www.spigotmc.org/resources/25136
 
 ### Tutorials for Making Discord Bots with Skript
-1. by [Zero Two](https://github.com/9Lota): https://skripthub.net/tutorials/16
+1. by Zero Two: https://skripthub.net/tutorials/16
 
 ### Skript Downloads
 - Minecraft 1.9+: https://github.com/SkriptLang/Skript/releases
