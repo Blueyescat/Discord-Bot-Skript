@@ -11,13 +11,9 @@ Includes a good evaluation system. It will try to login to the bot when you load
 1. by Zero Two: https://skripthub.net/tutorials/16
 
 ### Skript Downloads
-- Minecraft 1.9+: https://github.com/SkriptLang/Skript/releases
-
-- Minecraft 1.8: https://github.com/SkriptLang/Skript/releases/tag/dev36
-
-- Minecraft 1.8: https://drive.google.com/file/d/0B-hk5uuAupCALXNqZHhHeTdwek0/view
-
-- Minecraft 1.7-: https://dev.bukkit.org/projects/skript/files
+- Minecraft 1.9.4+: https://github.com/SkriptLang/Skript/releases
+- Minecraft 1.8.8: https://github.com/SkriptLang/Skript/releases/tag/dev36
+- Minecraft 1.7.10-: https://dev.bukkit.org/projects/skript/files
 
 #### Discord
 - Blueyescat#0733
