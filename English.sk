@@ -41,7 +41,7 @@ discord command evaluate <text>:
 	prefixes: {@prefixes}
 	bots: {@botName}
 	trigger:
-		if id of event-user is {@admins}:
+		if discord id of event-user is {@admins}:
 			set {_code} to regex replace "^\s+" with "" in arg-1
 			if first 3 characters of {_code} is "```":
 				if last 3 characters of {_code} is "```":
@@ -75,7 +75,7 @@ discord command purge <text>:
 	executable in: guild
 	bots: {@botName}
 	trigger:
-		if id of event-user is {@admins}:
+		if discord id of event-user is {@admins}:
 			set {_count} to arg-1 parsed as number
 			if {_count} is greater than 0:
 				grab the last {_count} messages in event-channel
